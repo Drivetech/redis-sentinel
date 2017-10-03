@@ -14,4 +14,4 @@ RUN chown redis:redis /redis/* && \
 
 EXPOSE 26379
 
-ENTRYPOINT ["sentinel-entrypoint.sh"]
+CMD ["sentinel-entrypoint.sh"]
