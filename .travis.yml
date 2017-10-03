@@ -1,0 +1,31 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  matrix :
+    - env:
+      PATCH_VERSION: '4.0.2'
+      MINOR_VERSION: '4.0'
+      MAJOR_VERSION: '4'
+      LATEST: 'latest'
+    - env:
+      PATCH_VERSION: '3.2.11'
+      MINOR_VERSION: '3.2'
+      MAJOR_VERSION: '3'
+
+install:
+  - docker build -t "lgatica/redis-sentinel:$PATCH_VERSION" "$PATCH_VERSION"
+
+script:
+  - docker run --rm "lgatica/redis-sentinel:$PATCH_VERSION" redis-cli -v
+
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker tag "lgatica/redis-sentinel:$PATCH_VERSION" "lgatica/redis-sentinel:$MINOR_VERSION"
+  - docker tag "lgatica/redis-sentinel:$PATCH_VERSION" "lgatica/redis-sentinel:$MAJOR_VERSION"
+  - if [ "$LATEST" == "latest" ]; then
+    docker tag "lgatica/redis-sentinel:$PATCH_VERSION" "lgatica/redis-sentinel:latest";
+    fi
+  - docker push lgatica/redis-sentinel
