@@ -16,7 +16,7 @@ env:
       MAJOR_VERSION: '3'
 
 install:
-  - docker build -t "lgatica/redis-sentinel:$PATCH_VERSION" "$PATCH_VERSION"
+  - docker build -t "lgatica/redis-sentinel:$PATCH_VERSION" "$MINOR_VERSION"
 
 script:
   - docker run --rm "lgatica/redis-sentinel:$PATCH_VERSION" redis-cli -v
