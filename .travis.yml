@@ -22,8 +22,7 @@ install:
   - docker build -t "lgatica/redis-sentinel:$PATCH_VERSION" "$MINOR_VERSION"
 
 script:
-  - docker run -d --name master redis:4.0.2-alpine
-  - docker run --rm --link master:master "lgatica/redis-sentinel:$PATCH_VERSION" redis-cli -v
+  - docker run --rm "lgatica/redis-sentinel:$PATCH_VERSION" redis-cli -v
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
