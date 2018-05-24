@@ -9,7 +9,7 @@ services:
 env:
   matrix :
     - env:
-      PATCH_VERSION: '4.0.2'
+      PATCH_VERSION: '4.0.9'
       MINOR_VERSION: '4.0'
       MAJOR_VERSION: '4'
       LATEST: 'latest'

@@ -8,7 +8,7 @@
 
 Supported tags and respective Dockerfile links
 
-- 4.0.2, 4.0, 4, latest ([4.0/Dockerfile](https://github.com/lgaticaq/redis-sentinel/blob/master/4.0.2/Dockerfile))
+- 4.0.9, 4.0, 4, latest ([4.0/Dockerfile](https://github.com/lgaticaq/redis-sentinel/blob/master/4.0.9/Dockerfile))
 - 3.2.11, 3.2, 3 ([3.2/Dockerfile](https://github.com/lgaticaq/redis-sentinel/blob/master/3.2.11/Dockerfile))
 
 ## Usage with docker run
@@ -26,12 +26,12 @@ version: '2'
 
 services:
   master:
-    image: redis:4.0.2-alpine
+    image: redis:4.0.9-alpine
     command: redis-server --appendonly yes --masterauth $REDIS_PASSWORD --requirepass $REDIS_PASSWORD
     volumes:
       - $PWD/data/master:/data
   slave:
-    image: redis:4.0.2-alpine
+    image: redis:4.0.9-alpine
     command: redis-server --appendonly yes --slaveof master 6379 --masterauth $REDIS_PASSWORD --requirepass $REDIS_PASSWORD
     volumes:
       - $PWD/data/slave:/data
