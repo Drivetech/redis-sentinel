@@ -24,7 +24,7 @@ install:
 script:
   - docker run --rm "lgatica/redis-sentinel:$PATCH_VERSION" redis-cli -v
 
-after_success:
+before_deploy:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker tag "lgatica/redis-sentinel:$PATCH_VERSION" "lgatica/redis-sentinel:$MINOR_VERSION"
   - docker tag "lgatica/redis-sentinel:$PATCH_VERSION" "lgatica/redis-sentinel:$MAJOR_VERSION"
@@ -32,3 +32,10 @@ after_success:
     docker tag "lgatica/redis-sentinel:$PATCH_VERSION" "lgatica/redis-sentinel:latest";
     fi
   - docker push lgatica/redis-sentinel
+
+deploy:
+  provider: script
+  script: docker push lgatica/redis-sentinel
+  skip_cleanup: true
+  on:
+    branch: master
